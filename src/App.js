@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import { Provider } from 'react-redux';
 import AppRouter from './routers/AppRouter';
 import configureStore from './store/configureStore';
 import { addExpense } from './actions/expenses';
@@ -18,18 +19,23 @@ store.dispatch(addExpense(
 store.dispatch(addExpense(
   {description:'gas bill',
   note: '', 
-  amount:  20, 
+  amount:  4343, 
   createdAt: 0}
 ))
-store.dispatch(setTextFilter('water'));
+store.dispatch(addExpense(
+  {description:'rent',
+  note: '', 
+  amount:  1095, 
+  createdAt: 100}
+))
 
 const state = store.getState();
-console.log(getVisibleExpenses(state.expenses, state.filters));
-
 class App extends Component {
   render() {
     return (
-      <AppRouter />
+        <Provider store={store}>
+          <AppRouter />
+        </Provider>
     );
   }
 }
